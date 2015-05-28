@@ -1,11 +1,13 @@
 import sys, pygame
 
+size = width, height = 1200, 700
 
-class Ball():
+class Sprite():
     def __init__(self, file, speed):
         self.file = file
         self.image = pygame.image.load(file)
         self.ballrect = self.image.get_rect()
+        self.ballrect.y = height - self.ballrect.height
         self.speed = speed
 
     def move(self, screen):
@@ -18,15 +20,15 @@ class Ball():
 
 pygame.init()
 
-size = width, height = 1200, 700
+
 
 black = 0, 0, 0
 
 screen = pygame.display.set_mode(size)
 
+new_balls = [Sprite("ball5.JPG", [5, 5]), Sprite("ball.png", [2, 2]), Sprite("ball2.PNG", [3, 3]), Sprite("ball3.GIF", [1, 1]), Sprite("Ball4.PNG", [4, 4])] 
 
-new_balls = [Ball("ball5.JPG", [5, 5]), Ball("ball.png", [2, 2]), Ball("ball2.PNG", [3, 3]), Ball("ball3.GIF", [1, 1]), Ball("Ball4.PNG", [4, 4])] 
-
+sapce_ship = Sprite("SpaceShip.PNG", [3, 0])
 
 while 1:
     for event in pygame.event.get():
@@ -34,11 +36,9 @@ while 1:
 
     screen.fill(black)
 
+    sapce_ship.move(screen)
 
     for b in new_balls:
         b.move(screen)
    
-
     pygame.display.flip()
-
-
