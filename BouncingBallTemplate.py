@@ -8,41 +8,25 @@ class Ball():
         self.ballrect = self.image.get_rect()
         self.speed = speed
 
-    def move(self):
+    def move(self, screen):
         self.ballrect = self.ballrect.move(self.speed)
         if self.ballrect.left < 0 or self.ballrect.right > width:
             self.speed[0] = -self.speed[0]
         if self.ballrect.top < 0 or self.ballrect.bottom > height:
             self.speed[1] = -self.speed[1]
-
+        screen.blit(self.image, self.ballrect)
 
 pygame.init()
 
 size = width, height = 1200, 700
 
-speeds = [[2, 2], [3, 3], [1, 1], [4, 4]]
-
 black = 0, 0, 0
 
 screen = pygame.display.set_mode(size)
 
-ball = pygame.image.load("ball.PNG")
-ballrect = ball.get_rect()
 
-ball2 = pygame.image.load("ball2.PNG")
-ballrect2 = ball2.get_rect()
+new_balls = [Ball("ball5.JPG", [5, 5]), Ball("ball.png", [2, 2]), Ball("ball2.PNG", [3, 3]), Ball("ball3.GIF", [1, 1]), Ball("Ball4.PNG", [4, 4])] 
 
-ball3 = pygame.image.load("ball3.GIF")
-ballrect3 = ball3.get_rect()
-
-ball4 = pygame.image.load("Ball4.PNG")
-ballrect4 = ball4.get_rect()
-
-balls = [ball, ball2, ball3, ball4]
-
-ballrects = [ballrect, ballrect2, ballrect3, ballrect4]
-
-ball5 = Ball("ball5.JPG", [5, 5])
 
 while 1:
     for event in pygame.event.get():
@@ -50,19 +34,10 @@ while 1:
 
     screen.fill(black)
 
-    for i in range(len(balls)):
 
-        ballrects[i] = ballrects[i].move(speeds[i])
-        if ballrects[i].left < 0 or ballrects[i].right > width:
-            speeds[i][0] = -speeds[i][0]
-        if ballrects[i].top < 0 or ballrects[i].bottom > height:
-            speeds[i][1] = -speeds[i][1]
-
-        screen.blit(balls[i], ballrects[i])
-    
-
-    ball5.move()
-    screen.blit(ball5.image, ball5.ballrect)
+    for b in new_balls:
+        b.move(screen)
+   
 
     pygame.display.flip()
 
