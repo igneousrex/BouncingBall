@@ -18,6 +18,22 @@ class Sprite():
             self.speed[1] = -self.speed[1]
         screen.blit(self.image, self.ballrect)
 
+class Player(Sprite):
+    def moveleft(self):
+        if self.speed[0] > 0:
+            self.speed[0] = -self.speed[0]
+
+    def moveright(self):
+        if self.speed[0] < 0:
+            self.speed[0] = -self.speed[0]
+
+    def move(self, screen):
+        if (self.speed[0] < 0 and self.ballrect.left + self.speed[0] > 0) or (self.speed[0] > 0 and self.ballrect.right + self.speed[0] < width):
+            self.ballrect = self.ballrect.move(self.speed)
+
+        screen.blit(self.image, self.ballrect)
+
+
 pygame.init()
 
 
@@ -28,17 +44,22 @@ screen = pygame.display.set_mode(size)
 
 new_balls = [Sprite("ball5.JPG", [5, 5]), Sprite("ball.png", [2, 2]), Sprite("ball2.PNG", [3, 3]), Sprite("ball3.GIF", [1, 1]), Sprite("Ball4.PNG", [4, 4])] 
 
-sapce_ship = Sprite("SpaceShip.PNG", [3, 0])
+sapce_ship = Player("SpaceShip.PNG", [3, 0])
 
 while 1:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: sys.exit()
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                sapce_ship.moveleft()
+            if event.key == pygame.K_RIGHT:
+                sapce_ship.moveright()
 
     screen.fill(black)
-
-    sapce_ship.move(screen)
 
     for b in new_balls:
         b.move(screen)
    
+    sapce_ship.move(screen)
+
     pygame.display.flip()
