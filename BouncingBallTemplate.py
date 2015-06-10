@@ -2,6 +2,8 @@ import sys, pygame
 
 size = width, height = 1200, 700
 
+PLAYER_SPEED = 5
+
 class Sprite():
     def __init__(self, file, speed):
         self.file = file
@@ -23,12 +25,19 @@ class Sprite():
 
 class Player(Sprite):
     def moveleft(self):
+        self.speed[0] = -PLAYER_SPEED
+            
+
+    def stop_left(self):
+        if self.speed[0] < 0:
+            self.speed[0] = 0 
+
+    def stop_right(self):
         if self.speed[0] > 0:
-            self.speed[0] = -self.speed[0]
+            self.speed[0] = 0 
 
     def moveright(self):
-        if self.speed[0] < 0:
-            self.speed[0] = -self.speed[0]
+        self.speed[0] = PLAYER_SPEED
 
     def move(self, screen):
         if (self.speed[0] < 0 and self.ballrect.left + self.speed[0] > 0) or (self.speed[0] > 0 and self.ballrect.right + self.speed[0] < width):
@@ -64,7 +73,7 @@ screen = pygame.display.set_mode(size)
 
 #new_balls = [Sprite("ball.png", [2, 2]), Sprite("ball2.PNG", [3, 3]), Sprite("ball3.GIF", [1, 1])] 
 
-sapce_ship = Player("SpaceShip.PNG", [3, 0])
+sapce_ship = Player("SpaceShip.PNG", [0, 0])
 
 missile = Missile("Missile.PNG", [0, -14])
 
@@ -83,6 +92,11 @@ while 1:
                 missile.show = True 
                 missile.ballrect.x = sapce_ship.ballrect.x + sapce_ship.ballrect.width /2 - missile.ballrect.width / 2
                 missile.ballrect.y = height - missile.ballrect.height
+        elif event.type == pygame.KEYUP:
+            if event.key == pygame.K_LEFT:
+                sapce_ship.stop_left()
+            if event.key == pygame.K_RIGHT:
+                sapce_ship.stop_right()
             
 
     screen.blit(background_image, [0, 0])
