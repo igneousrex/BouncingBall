@@ -3,6 +3,8 @@ import sys, pygame
 size = width, height = 1200, 700
 
 PLAYER_SPEED = 5
+VECTOR_X = 0
+VECTOR_Y = 1
 
 class Sprite():
     def __init__(self, file, speed):
@@ -16,31 +18,31 @@ class Sprite():
     def move(self, screen):
         self.ballrect = self.ballrect.move(self.speed)
         if self.ballrect.left < 0 or self.ballrect.right > width:
-            self.speed[0] = -self.speed[0]
+            self.speed[VECTOR_X] = -self.speed[VECTOR_X]
         if self.ballrect.top < 0 or self.ballrect.bottom > height:
-            self.speed[1] = -self.speed[1]
+            self.speed[VECTOR_Y] = -self.speed[VECTOR_Y]
 
         if self.show:
             screen.blit(self.image, self.ballrect)
 
 class Player(Sprite):
     def moveleft(self):
-        self.speed[0] = -PLAYER_SPEED
+        self.speed[VECTOR_X] = -PLAYER_SPEED
             
 
     def stop_left(self):
-        if self.speed[0] < 0:
-            self.speed[0] = 0 
+        if self.speed[VECTOR_X] < 0:
+            self.speed[VECTOR_X] = 0 
 
     def stop_right(self):
-        if self.speed[0] > 0:
-            self.speed[0] = 0 
+        if self.speed[VECTOR_X] > 0:
+            self.speed[VECTOR_X] = 0 
 
     def moveright(self):
-        self.speed[0] = PLAYER_SPEED
+        self.speed[VECTOR_X] = PLAYER_SPEED
 
     def move(self, screen):
-        if (self.speed[0] < 0 and self.ballrect.left + self.speed[0] > 0) or (self.speed[0] > 0 and self.ballrect.right + self.speed[0] < width):
+        if (self.speed[VECTOR_X] < 0 and self.ballrect.left + self.speed[VECTOR_X] > 0) or (self.speed[VECTOR_X] > 0 and self.ballrect.right + self.speed[VECTOR_X] < width):
             self.ballrect = self.ballrect.move(self.speed)
 
         screen.blit(self.image, self.ballrect)
