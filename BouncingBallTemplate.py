@@ -93,6 +93,10 @@ missile.mask = pygame.mask.from_surface(missile.image)
 
 missile.show = False
 
+clock = pygame.time.Clock()
+monofont = pygame.font.Font(None, 15)
+fps = monofont.render("init", 1, (0,0,0))
+
 while 1:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: sys.exit()
@@ -123,5 +127,9 @@ while 1:
     space_ship.move(screen)
 
     testEnemy.move(screen)
+
+    clock.tick()
+    fps = monofont.render(str(clock.get_fps()), 1, (0,0,0))
+    screen.blit(fps, (10, 10))
 
     pygame.display.flip()
