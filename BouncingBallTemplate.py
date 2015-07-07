@@ -87,8 +87,8 @@ for w in words:
 
 testEnemy.show = True
 
-testEnemy.ballrect.x = 0
-testEnemy.ballrect.y = 0
+testEnemy.ballrect.x = 10
+testEnemy.ballrect.y = 10
 
 missile.show = False
 
