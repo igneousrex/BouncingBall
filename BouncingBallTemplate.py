@@ -55,6 +55,10 @@ class Missile(Sprite):
         if self.show:
             screen.blit(self.image, self.ballrect)
 
+class Ememy(Sprite):
+    def move(self, screen):
+        screen.blit(self.image, self.ballrect)
+
 background_image = pygame.image.load("MoutainsBackground.JPG")
 
 pygame.init()
@@ -70,6 +74,8 @@ screen = pygame.display.set_mode(size)
 sapce_ship = Player("SpaceShip.PNG", [0, 0])
 
 missile = Missile("Missile.PNG", [0, -14])
+
+ememy = Ememy("Ball.PNG", [0, 0])
 
 missile.show = False
 
