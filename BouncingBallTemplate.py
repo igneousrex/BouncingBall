@@ -74,11 +74,16 @@ screen = pygame.display.set_mode(size)
 
 #new_balls = [Sprite("ball.png", [2, 2]), Sprite("ball2.PNG", [3, 3]), Sprite("ball3.GIF", [1, 1])]
 
-sapce_ship = Player("SpaceShip.png", [0, 0])
+space_ship = Player("SpaceShip.png", [0, 0])
 
 missile = Missile("Missile.png", [0, -20])
 
-testEnemy = Enemy("SpaceInvaders1.png", [3, 0])
+testEnemy = Enemy("SpaceInvaders1.png", [0, 0])
+
+words = ["cat", "window", "thing"]
+
+for w in words:
+    print w
 
 testEnemy.show = True
 
@@ -92,19 +97,19 @@ while 1:
         if event.type == pygame.QUIT: sys.exit()
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                sapce_ship.moveleft()
+                space_ship.moveleft()
             if event.key == pygame.K_RIGHT:
-                sapce_ship.moveright()
+                space_ship.moveright()
 
             if event.key == pygame.K_SPACE:
                 missile.show = True
-                missile.ballrect.x = sapce_ship.ballrect.x + sapce_ship.ballrect.width /2 - missile.ballrect.width / 2
+                missile.ballrect.x = space_ship.ballrect.x + space_ship.ballrect.width /2 - missile.ballrect.width / 2
                 missile.ballrect.y = height - missile.ballrect.height
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT:
-                sapce_ship.stop_left()
+                space_ship.stop_left()
             if event.key == pygame.K_RIGHT:
-                sapce_ship.stop_right()
+                space_ship.stop_right()
 
     screen.blit(background_image, [0, 0])
     #screen.fill(black)
@@ -114,7 +119,7 @@ while 1:
 
     missile.move(screen)
 
-    sapce_ship.move(screen)
+    space_ship.move(screen)
 
     testEnemy.move(screen)
 
