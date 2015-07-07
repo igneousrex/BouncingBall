@@ -76,9 +76,9 @@ screen = pygame.display.set_mode(size)
 
 sapce_ship = Player("SpaceShip.png", [0, 0])
 
-missile = Missile("Missile.png", [0, -14])
+missile = Missile("Missile.png", [0, -20])
 
-testEnemy = Enemy("SpaceInvaders1.png", [0, 0])
+testEnemy = Enemy("SpaceInvaders1.png", [3, 0])
 
 testEnemy.show = True
 
