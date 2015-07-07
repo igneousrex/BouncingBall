@@ -28,15 +28,14 @@ class Sprite():
 class Player(Sprite):
     def moveleft(self):
         self.speed[VECTOR_X] = -PLAYER_SPEED
-            
 
     def stop_left(self):
         if self.speed[VECTOR_X] < 0:
-            self.speed[VECTOR_X] = 0 
+            self.speed[VECTOR_X] = 0
 
     def stop_right(self):
         if self.speed[VECTOR_X] > 0:
-            self.speed[VECTOR_X] = 0 
+            self.speed[VECTOR_X] = 0
 
     def moveright(self):
         self.speed[VECTOR_X] = PLAYER_SPEED
@@ -48,8 +47,6 @@ class Player(Sprite):
         screen.blit(self.image, self.ballrect)
 
 class Missile(Sprite):
-
-
     def move(self, screen):
         self.ballrect = self.ballrect.move(self.speed)
         if self.ballrect.top < 1:
@@ -57,11 +54,6 @@ class Missile(Sprite):
 
         if self.show:
             screen.blit(self.image, self.ballrect)
-
-
-        
-      
-
 
 background_image = pygame.image.load("MoutainsBackground.JPG")
 
@@ -73,13 +65,13 @@ black = 0, 0, 0
 screen = pygame.display.set_mode(size)
 
 
-#new_balls = [Sprite("ball.png", [2, 2]), Sprite("ball2.PNG", [3, 3]), Sprite("ball3.GIF", [1, 1])] 
+#new_balls = [Sprite("ball.png", [2, 2]), Sprite("ball2.PNG", [3, 3]), Sprite("ball3.GIF", [1, 1])]
 
 sapce_ship = Player("SpaceShip.PNG", [0, 0])
 
 missile = Missile("Missile.PNG", [0, -14])
 
-missile.show = False 
+missile.show = False
 
 while 1:
     for event in pygame.event.get():
@@ -91,7 +83,7 @@ while 1:
                 sapce_ship.moveright()
 
             if event.key == pygame.K_SPACE:
-                missile.show = True 
+                missile.show = True
                 missile.ballrect.x = sapce_ship.ballrect.x + sapce_ship.ballrect.width /2 - missile.ballrect.width / 2
                 missile.ballrect.y = height - missile.ballrect.height
         elif event.type == pygame.KEYUP:
@@ -99,16 +91,15 @@ while 1:
                 sapce_ship.stop_left()
             if event.key == pygame.K_RIGHT:
                 sapce_ship.stop_right()
-            
 
     screen.blit(background_image, [0, 0])
     #screen.fill(black)
 
 
    # for b in new_balls:
-    
+
     missile.move(screen)
-   
+
     sapce_ship.move(screen)
 
     pygame.display.flip()
