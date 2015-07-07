@@ -55,9 +55,12 @@ class Missile(Sprite):
         if self.show:
             screen.blit(self.image, self.ballrect)
 
-class Ememy(Sprite):
+class Enemy(Sprite):
     def move(self, screen):
-        screen.blit(self.image, self.ballrect)
+        self.ballrect = self.ballrect.move(self.speed)
+
+        if self.show:
+            screen.blit(self.image, self.ballrect)
 
 background_image = pygame.image.load("MoutainsBackground.JPG")
 
@@ -71,11 +74,16 @@ screen = pygame.display.set_mode(size)
 
 #new_balls = [Sprite("ball.png", [2, 2]), Sprite("ball2.PNG", [3, 3]), Sprite("ball3.GIF", [1, 1])]
 
-sapce_ship = Player("SpaceShip.PNG", [0, 0])
+sapce_ship = Player("SpaceShip.png", [0, 0])
 
-missile = Missile("Missile.PNG", [0, -14])
+missile = Missile("Missile.png", [0, -14])
 
-ememy = Ememy("Ball.PNG", [0, 0])
+testEnemy = Enemy("SpaceInvaders1.png", [0, 0])
+
+testEnemy.show = True
+
+testEnemy.ballrect.x = 0
+testEnemy.ballrect.y = 0
 
 missile.show = False
 
@@ -107,5 +115,7 @@ while 1:
     missile.move(screen)
 
     sapce_ship.move(screen)
+
+    testEnemy.move(screen)
 
     pygame.display.flip()
