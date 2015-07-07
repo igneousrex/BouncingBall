@@ -49,7 +49,7 @@ class Player(Sprite):
 class Missile(Sprite):
     def move(self, screen):
         self.rect = self.rect.move(self.speed)
-        if self.rect.top < 1:
+        if (self.rect.top < 1) or (pygame.sprite.collide_mask(self, testEnemy)):
             self.show = False
 
         if self.show:
@@ -58,6 +58,9 @@ class Missile(Sprite):
 class Enemy(Sprite):
     def move(self, screen):
         self.rect = self.rect.move(self.speed)
+
+        if pygame.sprite.collide_mask(self, missile):
+            self.show = False
 
         if self.show:
             screen.blit(self.image, self.rect)
@@ -82,8 +85,11 @@ testEnemy = Enemy("SpaceInvaders1.png", [0, 0])
 
 testEnemy.show = True
 
-testEnemy.rect.x = 10
+testEnemy.rect.x = 100
 testEnemy.rect.y = 10
+
+testEnemy.mask = pygame.mask.from_surface(testEnemy.image)
+missile.mask = pygame.mask.from_surface(missile.image)
 
 missile.show = False
 
