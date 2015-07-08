@@ -10,20 +10,20 @@ class Sprite():
     def __init__(self, file, speed):
         self.file = file
         self.image = pygame.image.load(file)
-        self.ballrect = self.image.get_rect()
-        self.ballrect.y = height - self.ballrect.height
+        self.rect = self.image.get_rect()
+        self.rect.y = height - self.rect.height
         self.speed = speed
         self.show = True
 
     def move(self, screen):
-        self.ballrect = self.ballrect.move(self.speed)
-        if self.ballrect.left < 0 or self.ballrect.right > width:
+        self.rect = self.rect.move(self.speed)
+        if self.rect.left < 0 or self.rect.right > width:
             self.speed[VECTOR_X] = -self.speed[VECTOR_X]
-        if self.ballrect.top < 0 or self.ballrect.bottom > height:
+        if self.rect.top < 0 or self.rect.bottom > height:
             self.speed[VECTOR_Y] = -self.speed[VECTOR_Y]
 
         if self.show:
-            screen.blit(self.image, self.ballrect)
+            screen.blit(self.image, self.rect)
 
 class Player(Sprite):
     def moveleft(self):
@@ -41,26 +41,26 @@ class Player(Sprite):
         self.speed[VECTOR_X] = PLAYER_SPEED
 
     def move(self, screen):
-        if (self.speed[VECTOR_X] < 0 and self.ballrect.left + self.speed[VECTOR_X] > 0) or (self.speed[VECTOR_X] > 0 and self.ballrect.right + self.speed[VECTOR_X] < width):
-            self.ballrect = self.ballrect.move(self.speed)
+        if (self.speed[VECTOR_X] < 0 and self.rect.left + self.speed[VECTOR_X] > 0) or (self.speed[VECTOR_X] > 0 and self.rect.right + self.speed[VECTOR_X] < width):
+            self.rect = self.rect.move(self.speed)
 
-        screen.blit(self.image, self.ballrect)
+        screen.blit(self.image, self.rect)
 
 class Missile(Sprite):
     def move(self, screen):
-        self.ballrect = self.ballrect.move(self.speed)
-        if self.ballrect.top < 1:
+        self.rect = self.rect.move(self.speed)
+        if self.rect.top < 1:
             self.show = False
 
         if self.show:
-            screen.blit(self.image, self.ballrect)
+            screen.blit(self.image, self.rect)
 
 class Enemy(Sprite):
     def move(self, screen):
-        self.ballrect = self.ballrect.move(self.speed)
+        self.rect = self.rect.move(self.speed)
 
         if self.show:
-            screen.blit(self.image, self.ballrect)
+            screen.blit(self.image, self.rect)
 
 background_image = pygame.image.load("MoutainsBackground.JPG")
 
@@ -80,15 +80,10 @@ missile = Missile("Missile.png", [0, -20])
 
 testEnemy = Enemy("SpaceInvaders1.png", [0, 0])
 
-words = ["cat", "window", "thing"]
-
-for w in words:
-    print w
-
 testEnemy.show = True
 
-testEnemy.ballrect.x = 10
-testEnemy.ballrect.y = 10
+testEnemy.rect.x = 10
+testEnemy.rect.y = 10
 
 missile.show = False
 
@@ -103,8 +98,8 @@ while 1:
 
             if event.key == pygame.K_SPACE:
                 missile.show = True
-                missile.ballrect.x = space_ship.ballrect.x + space_ship.ballrect.width /2 - missile.ballrect.width / 2
-                missile.ballrect.y = height - missile.ballrect.height
+                missile.rect.x = space_ship.rect.x + space_ship.rect.width /2 - missile.rect.width / 2
+                missile.rect.y = height - missile.rect.height
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT:
                 space_ship.stop_left()
