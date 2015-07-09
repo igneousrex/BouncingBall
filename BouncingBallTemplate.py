@@ -49,7 +49,7 @@ class Player(Sprite):
 class Missile(Sprite):
     def move(self, screen):
         self.rect = self.rect.move(self.speed)
-        if (self.rect.top < 1) or (pygame.sprite.collide_mask(self, testEnemy)):
+        if self.rect.top < 1:
             self.show = False
 
         if self.show:
@@ -59,11 +59,12 @@ class Enemy(Sprite):
     def move(self, screen):
         self.rect = self.rect.move(self.speed)
 
-        if pygame.sprite.collide_mask(self, missile):
-            self.show = False
-
         if self.show:
             screen.blit(self.image, self.rect)
+
+            if pygame.sprite.collide_mask(self, missile):
+                self.show = False
+                missile.show = False
 
 background_image = pygame.image.load("MoutainsBackground.JPG")
 
