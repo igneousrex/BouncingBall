@@ -48,11 +48,11 @@ class Player(Sprite):
 
 class Missile(Sprite):
     def move(self, screen):
-        self.rect = self.rect.move(self.speed)
         if self.rect.top < 1:
             self.show = False
 
         if self.show:
+            self.rect = self.rect.move(self.speed)
             screen.blit(self.image, self.rect)
 
 class Enemy(Sprite):
